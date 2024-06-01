@@ -8,7 +8,7 @@ const App = () => {
     const [notes, setNotes] = useState([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
- 
+    axios.defaults.withCredentials = true;
     useEffect(() => {
         axios
             .get("https://notes-maker-server.vercel.app")
