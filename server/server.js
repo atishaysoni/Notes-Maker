@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-	origin: [],
+	origin: ["https://notes-maker-client.vercel.app"],
 	methods: ["POST", "GET"],
 	credentials: true
 }));
