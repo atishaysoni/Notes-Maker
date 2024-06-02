@@ -11,14 +11,14 @@ const App = () => {
     axios.defaults.withCredentials = true;
     useEffect(() => {
         axios
-            .get("https://notes-maker-server.vercel.app")
+            .get("https://notes-maker-server.vercel.app/api/notes")
             .then((response) => setNotes(response.data))
             .catch((error) => console.error("Error fetching notes:", error));
     }, []);
 
     const handleAddNote = () => {
         axios
-            .post("https://notes-maker-server.vercel.app", { title, content })
+            .post("https://notes-maker-server.vercel.app/api/notes", { title, content })
             .then((response) => {
                 setNotes([...notes, response.data]);
                 setTitle("");
@@ -29,7 +29,7 @@ const App = () => {
 
     const handleEditNote = (id, updatedTitle, updatedContent) => {
         axios
-            .put(`https://notes-maker-server.vercel.app/${id}`, {
+            .put(`https://notes-maker-server.vercel.app/api/notes/${id}`, {
                 title: updatedTitle,
                 content: updatedContent,
             })
@@ -44,7 +44,7 @@ const App = () => {
 
     const handleDeleteNote = (id) => {
         axios
-            .delete(`https://notes-maker-server.vercel.app/${id}`)
+            .delete(`https://notes-maker-server.vercel.app/api/notes/${id}`)
             .then((response) => {
                 const updatedNotes = notes.filter((note) => note._id !== id);
                 setNotes(updatedNotes);
