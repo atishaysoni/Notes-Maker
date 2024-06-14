@@ -1,10 +1,11 @@
 import React from "react";
 
-const NoteList = ({ notes, onEditNote, onDeleteNote }) => {
+const NoteList = ({ notes, username, password, onEditNote, onDeleteNote }) => {
     return (
         <ul>
             {notes.map((note) => (
-                <li key={note._id}>
+                note.username === username && note.password === password && note.title !== undefined ?
+                    <li key={note._id}>
                     <strong>{note.title
                     }</strong>
                     <p>{note.content}</p>
@@ -27,7 +28,8 @@ const NoteList = ({ notes, onEditNote, onDeleteNote }) => {
                     >
                         Delete
                     </button>
-                </li>
+                </li> : null
+                
             ))}
         </ul>
     );

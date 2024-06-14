@@ -20,6 +20,8 @@ const dbURI = process.env.MONGODB_URI;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Note = mongoose.model("Note", {
+	username: String,
+	password: String,
 	title: String,
 	content: String,
 });
@@ -45,7 +47,32 @@ app.get("/api/notes", async (req, res) => {
 	}
 });
 
-app.put("/api/notes/:id", async (req, res) => {
+app.post("api/notes/authenticate", async (req, res) => {
+	const {username, password} = req.body;
+	const note = await Note.find({username: username, password: password})
+	try{
+		if(note.length > 0){
+			res.status(200);
+		}else{
+			const newNote = new Note({username, password})
+		}
+	} catch (error) {
+		res.status(400).json({ message: error.message });
+	}
+});
+
+app.post("/api/notes/add", async (req, res) => {
+	const { username, password, title, content } = req.body;
+	const note = new Note({ username, password, title, content });
+	try {
+		const newNote = await note.save();
+		res.status(201).json(newNote);
+	} catch (error) {
+		res.status(400).json({ message: error.message });
+	}
+});
+
+app.put("/api/notes/edit/:id", async (req, res) => {
 	const { title, content } = req.body;
 	const noteId = req.params.id;
 	try {
@@ -60,24 +87,14 @@ app.put("/api/notes/:id", async (req, res) => {
 	}
 });
 
-app.delete("/api/notes/:id", async (req, res) => {
+
+app.delete("/api/notes/delete/:id", async (req, res) => {
 	const noteId = req.params.id;
 	try {
 		await Note.findByIdAndDelete(noteId);
 		res.json({ message: "Note deleted successfully" });
 	} catch (error) {
 		res.status(404).json({ message: "Note not found" });
-	}
-});
-
-app.post("/api/notes", async (req, res) => {
-	const { title, content } = req.body;
-	const note = new Note({ title, content });
-	try {
-		const newNote = await note.save();
-		res.status(201).json(newNote);
-	} catch (error) {
-		res.status(400).json({ message: error.message });
 	}
 });
 
