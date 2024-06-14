@@ -23,13 +23,14 @@ const App = () => {
     }, []);
 
     const handleAuthentication = () => {
-        axios.post("https://notes-maker-server.vercel.app/api/notes/authenticate", { username, password}).then((response) => {
-            if(response.status === 200) {
-                setAuthenticated(true);
-            }
-        })
-
-        
+        axios
+            .post("https://notes-maker-server.vercel.app/api/notes/authenticate", { username, password })
+            .then((response) => {
+                if(response.status === 200){
+                    setAuthenticated(true);
+                }
+            })
+            .catch((error) => console.error("Authentication error", error));
     }
 
     const handleAddNote = () => {
