@@ -4,7 +4,7 @@ const NoteList = ({ notes, username, password, onEditNote, onDeleteNote }) => {
     return (
         <ul>
             {notes.map((note) => (
-                note.username === username && note.password === password && note.title !== undefined ?
+                (note.username === username && note.password === password && note.title !== undefined) ?
                     <li key={note._id}>
                     <strong>{note.title
                     }</strong>
