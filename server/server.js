@@ -55,7 +55,7 @@ app.post("/api/notes/authenticate", async (req, res) => {
 			res.status(200);
 		}else{
 			const newNote = new Note({username, password})
-			newNote.save();
+			await newNote.save();
 			res.status(200);
 		}
 	} catch (error) {
