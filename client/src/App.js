@@ -26,7 +26,7 @@ const App = () => {
         axios
             .post("https://notes-maker-server.vercel.app/api/notes/authenticate", { username, password })
             .then((response) => {
-                if(response.status === 200){
+                if(response.status === 200 || response.status === 201){
                     setAuthenticated(true);
                 }
             })
