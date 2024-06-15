@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors({
 	origin: ["https://notes-maker-client.vercel.app"],
-	methods: ["POST", "GET", "PUT", "DELETE"],
+	methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
 	credentials: true
 }));
 
