@@ -4,6 +4,7 @@ const NoteList = ({ notes, onEditNote, onDeleteNote }) => {
     return (
         <ul>
             {notes.map((note) => (
+                note.title !== undefined ?
                     <li key={note._id}>
                     <strong>{note.title
                     }</strong>
@@ -27,7 +28,7 @@ const NoteList = ({ notes, onEditNote, onDeleteNote }) => {
                     >
                         Delete
                     </button>
-                </li>  
+                </li> : null
             ))}
         </ul>
     );
