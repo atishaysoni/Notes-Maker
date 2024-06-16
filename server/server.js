@@ -49,7 +49,7 @@ app.get("/api/notes", async (req, res) => {
 
 app.post("/api/notes/authenticate", async (req, res) => {
 	const {username, password} = req.body;
-	const note = await Note.find({username: username, password: password})
+	const note = await Note.find({username, password})
 	try{
 		if(note.length > 0){
 			res.status(200);
