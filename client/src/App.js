@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
 import NoteList from "./components/NoteList";
@@ -15,19 +15,13 @@ const App = () => {
 
     axios.defaults.withCredentials = true;
 
-    useEffect(() => {
-        axios 
-            .get("https://notes-maker-server.vercel.app/api/notes")
-            .then((response) => setNotes(response.data))
-            .catch((error) => console.error("Error fetching notes:", error));
-    }, []);
-
     const handleAuthentication = () => {
         axios
             .post("https://notes-maker-server.vercel.app/api/notes/authenticate", { username, password })
             .then((response) => {
                 if(response.status === 200 || response.status === 201){
                     setAuthenticated(true);
+                    setNotes(response.data);
                 }
             })
             .catch((error) => console.error("Authentication error", error));
@@ -82,8 +76,6 @@ const App = () => {
             />
             <NoteList
                 notes={notes}
-                username={username}
-                password={password}
                 onEditNote={handleEditNote}
                 onDeleteNote={handleDeleteNote}
             />

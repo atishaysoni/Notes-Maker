@@ -38,15 +38,6 @@ app.get("/", (req, res) => {
 	res.send("Hello, this is the root!");
 });
 
-app.get("/api/notes", async (req, res) => {
-	try {
-		const notes = await Note.find();
-		res.json(notes);
-	} catch (error) {
-		res.status(500).json({ message: error.message });
-	}
-});
-
 app.post("/api/notes/authenticate", async (req, res) => {
 	const {username, password} = req.body;
 	const note = await Note.find({username, password})
@@ -88,7 +79,6 @@ app.put("/api/notes/edit/:id", async (req, res) => {
 		res.status(404).json({ message: "Note not found" });
 	}
 });
-
 
 app.delete("/api/notes/delete/:id", async (req, res) => {
 	const noteId = req.params.id;
