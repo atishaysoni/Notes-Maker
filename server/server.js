@@ -52,7 +52,7 @@ app.post("/api/notes/authenticate", async (req, res) => {
 	const note = await Note.find({username, password})
 	try{
 		if(note.length > 0){
-			res.status(200);
+			res.status(200).json(note);
 		}else{
 			const newRegister = new Note({username, password})
 			const register = await newRegister.save();
