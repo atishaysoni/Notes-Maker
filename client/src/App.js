@@ -19,9 +19,12 @@ const App = () => {
         axios
             .post("https://notes-maker-server.vercel.app/api/notes/authenticate", { username, password })
             .then((response) => {
-                if(response.status === 200 || response.status === 201){
+                if(response.status === 200){
                     setAuthenticated(true);
                     setNotes(response.data);
+                }else if(response.status === 201){
+                    setAuthenticated(true);
+                    setNotes([response.data]);
                 }
             })
             .catch((error) => console.error("Authentication error", error));
